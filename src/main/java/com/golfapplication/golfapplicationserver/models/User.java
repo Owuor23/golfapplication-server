@@ -1,64 +1,74 @@
 package com.golfapplication.golfapplicationserver.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.sun.javafx.beans.IDProperty;
-import java.util.List;
-import java.util.Set;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name="users")
-@JsonIgnoreProperties("{\"hibernateLazyInitializer\",\"handler\"}")
 public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private long user_id;
+    private int id;
 
-    private String first_name;
-    private String last_name;
-    private String username;
+    @NotBlank
+    @Column(name="first_name")
+    private String firstName;
+    @NotBlank
+    @Column(name="last_name")
+    private String lastName;
+    @NotBlank
+    @Column(name="user_name")
+    private String userName;
+    @NotBlank
+    @Column(name="password")
     private  String password;
 
-    @Transient
-    private String passwordCornfirm;
+   // @Transient
+   // private String passwordCornfirm;
 
-    @ManyToMany
-    private Set<Role> roles;
+   // @ManyToMany
+   // private Set<Role> roles;
 
-    public User(){
 
+    public User(@NotBlank String firstName, @NotBlank String lastName, @NotBlank String userName, @NotBlank String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userName = userName;
+        this.password = password;
     }
 
-    public long getUser_id() {
-        return user_id;
+    private User(){
+
+    }
+    public  int getId() {
+        return id;
     }
 
-    public void setUser_id(long user_id) {
-        this.user_id = user_id;
+    public void setUser_id(int id) {
+        this.id = id;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUseName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -67,21 +77,5 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getPasswordCornfirm() {
-        return passwordCornfirm;
-    }
-
-    public void setPasswordCornfirm(String passwordCornfirm) {
-        this.passwordCornfirm = passwordCornfirm;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
     }
 }

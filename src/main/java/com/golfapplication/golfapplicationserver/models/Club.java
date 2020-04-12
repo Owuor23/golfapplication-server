@@ -1,40 +1,47 @@
 package com.golfapplication.golfapplicationserver.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import java.util.Set;
 
 @Entity
 public class Club {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long clubId;
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    @NotBlank
     @Column(name="club_name")
     private String clubName;
-
+    @NotBlank
     @Column(name="club_Location")
     private String clubLocation;
-
+    @NotBlank
     @Column(name = "latitude")
     private double latitude;
-
+    @NotBlank
     @Column(name = "longitude")
     private double longitude;
 
-    @Column(name="club_service")
-    private  String clubService;
-   //Define opening hours and clossing hours
+    @ManyToMany(mappedBy = "CLub")
+    private Set<Services> servicesSet;
 
-
-
-    public Club(){
+    public Club(@NotBlank String clubName, @NotBlank String clubLocation, @NotBlank double latitude, @NotBlank double longitude) {
+        this.clubName = clubName;
+        this.clubLocation = clubLocation;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
-    public long getClubId() {
-        return clubId;
+    private Club(){
+
     }
 
-    public void setClubId(long clubId) {
-        this.clubId = clubId;
+    public  int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getClubName() {
@@ -69,11 +76,12 @@ public class Club {
         this.longitude = longitude;
     }
 
-    public String getClubService() {
-        return clubService;
+
+    public Set<Services> getServicesSet() {
+        return servicesSet;
     }
 
-    public void setClubService(String clubService) {
-        this.clubService = clubService;
+    public void setServicesSet(Set<Services> servicesSet) {
+        this.servicesSet = servicesSet;
     }
 }

@@ -1,18 +1,19 @@
-//  package com.golfapplication.golfapplicationserver.service;
+ package com.golfapplication.golfapplicationserver.service;
 
-//  import com.golfapplication.golfapplicationserver.models.Club;
+ import com.golfapplication.golfapplicationserver.models.Club;
+ import org.springframework.data.repository.CrudRepository;
+ import java.util.List;
+ import java.util.Optional;
 
-//  import java.util.List;
+ public interface ClubService extends CrudRepository<Club,Integer> {
 
-//  public interface ClubService  {
-//      List<Club> findByClubNameStartingWith(String clubName);
-//      List<Club> findByClubNameStartingWithAndClubLocation(
-//             String clubName,
-//              String clubLocation);
-//      List<Club> findByLatitudeIsNotAndLongitudeIsNot(double latitude,
-//                                                      double longitude);
+      List<Club> findByClubNameStartingWithAndClubLocation(String clubName, String clubLocation);
+      List<Club> findByLatitudeIsNotAndLongitudeIsNot(double latitude, double longitude);
+      Optional<Club> findById(Integer id);
 
-//      void save(Club club);
 
-//      Club findByClubId(long clubId);
-//  }
+      Iterable<Club>  findByFirstNameAndLastName(String firstName,String lastName);
+
+      Iterable<Club> findByFirstName(String firstName);
+      Iterable<Club> findByLastName(String lastName);
+  }
